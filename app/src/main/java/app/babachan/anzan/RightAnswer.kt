@@ -1,5 +1,6 @@
 package app.babachan.anzan
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
@@ -10,15 +11,25 @@ class RightAnswer : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_right_answer)
 
-        val number = intent.getStringExtra("NUMBER")
-        val number1 = intent.getStringExtra("NUMBER1")
-        val operator = intent.getStringExtra("OPERATOR")
-        val enterAnswer = intent.getStringExtra("ENTER")
+val questionText = intent.getStringExtra("question")
+        val enterAnswer = intent.getStringExtra("answer")
+        val correctAnswer = intent.getStringExtra("correct")
 
-        rightTextView.text = number
-        righttextView1.text = number1
-        rightOperator.text = operator
+        question.text = questionText
         answerText.text = enterAnswer
 
+        if(enterAnswer == correctAnswer){
+            imageView3.setImageResource(R.drawable.correct_image)
+            imageView2.setImageResource(R.drawable.randy_happy_image)
+        }else{
+            imageView3.setImageResource(R.drawable.miss_image)
+            imageView2.setImageResource(R.drawable.randy_sad_image)
+        }
+
+        button2.setOnClickListener {
+            val questionPage = Intent(this, MainActivity::class.java)
+            startActivity(questionPage)
+            finish()
+        }
     }
 }
