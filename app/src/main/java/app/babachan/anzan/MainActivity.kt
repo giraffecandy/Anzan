@@ -21,13 +21,10 @@ class MainActivity : AppCompatActivity() {
         val operator = operatorList[index]
 
         operatorTextView.text = operator
-        intent.putExtra("OPERATOR", operator)
 
         textView.text = number.toString()
         textView2.text = number1.toString()
 
-        intent.putExtra("NUMBER", number)
-        intent.putExtra("NUMBER1", number1)
 
        val enterAnswer = answerTextView.editableText.toString()
         val answer = findViewById(R.id.answerTextView) as EditText
@@ -36,19 +33,30 @@ class MainActivity : AppCompatActivity() {
 
 
         var cpuAnswer = number + number1
-        intent.putExtra("ENTER",enterAnswer)
+        val cpu = cpuAnswer.toString()
 
+        button.setOnClickListener {
+            if (enterAnswer == cpu) {
 
-
-            if (intEnterAnswer == cpuAnswer) {
                 val intent: Intent = Intent(this, RightAnswer::class.java)
+                intent.putExtra("OPERATOR", operator)
+                intent.putExtra("NUMBER", number)
+                intent.putExtra("NUMBER1", number1)
+                intent.putExtra("ENTER", enterAnswer)
+
                 startActivity(intent)
+
             } else {
-                val intent: Intent = Intent(this, WrongAnswer::class.java)
-                startActivity(intent)
+                val intent1: Intent = Intent(this, WrongAnswer::class.java)
+                intent.putExtra("OPERATOR", operator)
+                intent.putExtra("NUMBER", number)
+                intent.putExtra("NUMBER1", number1)
+                intent.putExtra("ENTER",enterAnswer)
+
+                startActivity(intent1)
             }
 
 
-
+        }
     }
 }
